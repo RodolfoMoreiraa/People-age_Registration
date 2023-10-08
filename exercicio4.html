@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registo de Participantes</title>
+  </head>
+  <body>
+    <h1>Idades</h1>
+    <button onclick="registrarParticipantes()">Começar Registo!</button>
+
+    <script>
+      function registrarParticipantes() {
+        var n_participantes = 0;
+        var totalIdades = [];
+
+        // Pede ao utilizador quantos participantes quer registar
+        var n_pessoas = parseInt(prompt("Quantas pessoas deseja registar?"));
+
+        // Loop para pedir a idade de cada participante
+        while (n_participantes < n_pessoas) {
+          var idade = parseInt(prompt("Qual a idade do participante " + (n_participantes + 1) + "?"));
+          totalIdades.push(idade);      //vai adicionar a idade ao array
+          n_participantes++;
+        }
+
+        // Calcula as informações estatísticas
+        var n_registados = totalIdades.length;
+        var idade_min = Math.min(...totalIdades);
+        var idade_max = Math.max(...totalIdades);
+        var soma_idades = totalIdades.reduce(function (a, b) {
+          return a + b;
+        }, 0);
+        var media_idades = soma_idades / n_registados;
+
+        // Mostra a mensagem de confirmação
+        var confirmacao = confirm(
+          "Confirma que deseja registar " +
+            n_registados +
+            " participante(s), com idade mínima de " +
+            idade_min +
+            ", idade máxima de " +
+            idade_max +
+            ", e média de idades de " +
+            media_idades.toFixed(2) +
+            "?"
+        );
+
+        // Mostra as informações estatísticas na página
+        if (confirmacao) {
+          var div_resultado = document.createElement("div");
+          div_resultado.innerHTML =
+            "<p>Número de participantes registados: " +
+            n_registados +
+            "</p><p>Média de idades: " +
+            media_idades.toFixed(2) +
+            "</p><p>Idade mínima: " +
+            idade_min +
+            "</p><p>Idade máxima: " +
+            idade_max +
+            "</p>";
+          document.body.appendChild(div_resultado);
+
+          // Adiciona o novo elemento div ao final do corpo do documento
+          document.body.appendChild(div_botao);
+        }
+      }
+    </script>
+  </body>
+</html>
